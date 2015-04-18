@@ -44,8 +44,11 @@ namespace SharpStar.Lib.Packets
 
         public bool Local { get; set; }
 
+        public byte[] Unknown { get; set; }
+
         public override void Read(IStarboundStream stream)
         {
+            /*
             Planet = stream.ReadVariant();
             WorldStructure = stream.ReadVariant();
             Sky = stream.ReadUInt8Array();
@@ -55,10 +58,13 @@ namespace SharpStar.Lib.Packets
             WorldProperties = stream.ReadVariant();
             ClientId = stream.ReadUInt32();
             Local = stream.ReadBoolean();
+             */
+            Unknown = stream.ReadToEnd();
         }
 
         public override void Write(IStarboundStream stream)
         {
+            /*
             stream.WriteVariant(Planet);
             stream.WriteVariant(WorldStructure);
             stream.WriteUInt8Array(Sky);
@@ -68,6 +74,8 @@ namespace SharpStar.Lib.Packets
             stream.WriteVariant(WorldProperties);
             stream.WriteUInt32(ClientId);
             stream.WriteBoolean(Local);
+             */
+            stream.Write(Unknown, 0, Unknown.Length);
         }
     }
 }

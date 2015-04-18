@@ -66,7 +66,7 @@ namespace SharpStar.Lib.Logging
             {
 
                 AnsiColorTerminalAppender ansiColor = new AnsiColorTerminalAppender();
-                ansiColor.AddMapping(new AnsiColorTerminalAppender.LevelColors { Level = Level.Info, ForeColor = AnsiColorTerminalAppender.AnsiColor.White, BackColor = AnsiColorTerminalAppender.AnsiColor.Green });
+                ansiColor.AddMapping(new AnsiColorTerminalAppender.LevelColors { Level = Level.Info, ForeColor = AnsiColorTerminalAppender.AnsiColor.Blue, BackColor = AnsiColorTerminalAppender.AnsiColor.White });
                 ansiColor.AddMapping(new AnsiColorTerminalAppender.LevelColors { Level = Level.Debug, ForeColor = AnsiColorTerminalAppender.AnsiColor.White, BackColor = AnsiColorTerminalAppender.AnsiColor.Blue });
                 ansiColor.AddMapping(new AnsiColorTerminalAppender.LevelColors { Level = Level.Warn, ForeColor = AnsiColorTerminalAppender.AnsiColor.Yellow, BackColor = AnsiColorTerminalAppender.AnsiColor.Magenta });
                 ansiColor.AddMapping(new AnsiColorTerminalAppender.LevelColors { Level = Level.Error, ForeColor = AnsiColorTerminalAppender.AnsiColor.Yellow, BackColor = AnsiColorTerminalAppender.AnsiColor.Red });
@@ -81,7 +81,7 @@ namespace SharpStar.Lib.Logging
             {
 
                 ColoredConsoleAppender colorAppender = new ColoredConsoleAppender();
-                colorAppender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = Level.Info, ForeColor = ColoredConsoleAppender.Colors.White | ColoredConsoleAppender.Colors.HighIntensity, BackColor = ColoredConsoleAppender.Colors.Green });
+                colorAppender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = Level.Info, ForeColor = ColoredConsoleAppender.Colors.Blue | ColoredConsoleAppender.Colors.HighIntensity, BackColor = ColoredConsoleAppender.Colors.White });
                 colorAppender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = Level.Debug, ForeColor = ColoredConsoleAppender.Colors.White | ColoredConsoleAppender.Colors.HighIntensity, BackColor = ColoredConsoleAppender.Colors.Blue });
                 colorAppender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = Level.Warn, ForeColor = ColoredConsoleAppender.Colors.Yellow | ColoredConsoleAppender.Colors.HighIntensity, BackColor = ColoredConsoleAppender.Colors.Purple });
                 colorAppender.AddMapping(new ColoredConsoleAppender.LevelColors { Level = Level.Error, ForeColor = ColoredConsoleAppender.Colors.Yellow | ColoredConsoleAppender.Colors.HighIntensity, BackColor = ColoredConsoleAppender.Colors.Red });

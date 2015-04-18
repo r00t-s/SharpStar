@@ -19,10 +19,12 @@ namespace SharpStar.Lib.Packets
 {
     public class ChatSentPacket : Packet
     {
+        
         public override byte PacketId
         {
-            get { return (byte)KnownPacket.ChatSent; }
+            get { return (byte)KnownPacket.ChatSend; }
         }
+        
 
         public string Message { get; set; }
 

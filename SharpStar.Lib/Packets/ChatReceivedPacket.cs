@@ -23,12 +23,14 @@ namespace SharpStar.Lib.Packets
 
         public override byte PacketId
         {
-            get { return (byte)KnownPacket.ChatReceived; }
+            get { return (byte)KnownPacket.ChatReceive; }
         }
-        
-        public byte Channel { get; set; }
 
-        public string World { get; set; }
+        
+
+        public ChatMode cm { get; set; }
+
+        public string ChannelName { get; set; }
 
         public uint ClientId { get; set; }
 
@@ -36,29 +38,50 @@ namespace SharpStar.Lib.Packets
 
         public string Message { get; set; }
 
+        /*
+        public string World { get; set; }
+        */
+
         public ChatReceivedPacket()
         {
-            World = String.Empty;
+            ChannelName = String.Empty;
             Name = String.Empty;
             Message = String.Empty;
+        
         }
 
         public override void Read(IStarboundStream stream)
         {
-            Channel = stream.ReadUInt8();
-            World = stream.ReadString();
+            cm = (ChatMode) stream.ReadUInt8();
+            ChannelName = stream.ReadString();
             ClientId = stream.ReadUInt32();
             Name = stream.ReadString();
             Message = stream.ReadString();
+
+            /*
+            World = stream.ReadString(); 
+            */
         }
 
         public override void Write(IStarboundStream stream)
         {
-            stream.WriteUInt8(Channel);
-            stream.WriteString(World);
+            stream.WriteUInt8((byte) cm);
+            stream.WriteString(ChannelName);
             stream.WriteUInt32(ClientId);
             stream.WriteString(Name);
             stream.WriteString(Message);
+
+            /*
+            stream.WriteString(World);
+             */
         }
+    }
+
+    public enum ChatMode
+    {
+        Channel,	
+        Broadcast,
+        Whisper,
+        CommandResult
     }
 }

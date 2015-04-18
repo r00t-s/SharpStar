@@ -21,11 +21,12 @@ namespace SharpStar.Lib.Packets
 {
     public class WarpCommandPacket : Packet
     {
+        /*
         public override byte PacketId
         {
             get { return (byte)KnownPacket.WarpCommand; }
         }
-
+        */
         public WarpType WarpType { get; set; }
 
         public WorldCoordinate Coordinates { get; set; }

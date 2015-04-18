@@ -24,10 +24,13 @@ namespace SharpStar.Lib.Packets
             get { return (byte)KnownPacket.OpenContainer; }
         }
 
+        public InteractActionType Interaction {get;set;}
+
         public long EntityId { get; set; }
 
         public override void Read(IStarboundStream stream)
         {
+            //Interaction = stream;
             EntityId = stream.ReadSignedVLQ();
         }
 
@@ -35,5 +38,22 @@ namespace SharpStar.Lib.Packets
         {
             stream.WriteSignedVLQ(EntityId);
         }
+    }
+
+    public enum InteractActionType
+    {
+        None,
+        OpenCockpitInterface, 	
+        OpenContainer, 	
+        SitDown, 	
+        OpenCraftingInterface, 	
+        PlayCinematic, 	
+        OpenSongbookInterface, 	
+        OpenNpcCraftingInterface, 	
+        OpenNpcBountyInterface, 	
+        OpenAiInterface, 	
+        OpenTeleportDialog,	
+        ShowPopup, 	
+        ScriptConsole, 	
     }
 }

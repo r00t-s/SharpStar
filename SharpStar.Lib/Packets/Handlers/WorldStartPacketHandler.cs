@@ -22,8 +22,10 @@ namespace SharpStar.Lib.Packets.Handlers
 {
     public class WorldStartPacketHandler : PacketHandler<WorldStartPacket>
     {
+        /*
         public override Task Handle(WorldStartPacket packet, SharpStarClient client)
         {
+            
             Variant planet = packet.Planet;
             VariantDict planetDict = (VariantDict) planet.Value;
 
@@ -77,6 +79,21 @@ namespace SharpStar.Lib.Packets.Handlers
         public override Task HandleAfter(WorldStartPacket packet, SharpStarClient client)
         {
             SharpStarMain.Instance.PluginManager.CallEvent("afterWorldStart", packet, client);
+
+            return base.HandleAfter(packet, client);
+        }
+        */
+
+        public override Task Handle(WorldStartPacket packet, SharpStarClient client)
+        {
+            SharpStarMain.Instance.PluginManager.CallEvent("chatSendResult", packet, client);
+
+            return base.Handle(packet, client);
+        }
+
+        public override Task HandleAfter(WorldStartPacket packet, SharpStarClient client)
+        {
+            SharpStarMain.Instance.PluginManager.CallEvent("afterChatSendResult", packet, client);
 
             return base.HandleAfter(packet, client);
         }

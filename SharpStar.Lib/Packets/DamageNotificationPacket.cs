@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using SharpStar.Lib.Networking;
+using SharpStar.Lib.DataTypes;
 
 namespace SharpStar.Lib.Packets
 {
@@ -42,9 +43,13 @@ namespace SharpStar.Lib.Packets
 
         public byte HitResultKind { get; set; }
 
+        public DamageNotification DamageN { get; set; }
+
         public override void Read(IStarboundStream stream)
         {
             CauseEntityId = stream.ReadSignedVLQ();
+            DamageN = DamageNotification.FromStream(stream);
+            /*
             TargetEntityId = stream.ReadSignedVLQ();
             PositionX = stream.ReadSignedVLQ() / 100;
             PositionY = stream.ReadSignedVLQ() / 100;
@@ -53,11 +58,14 @@ namespace SharpStar.Lib.Packets
             DamageSourceKind = stream.ReadString();
             TargetMaterialKind = stream.ReadString();
             HitResultKind = stream.ReadUInt8();
+            */
         }
 
         public override void Write(IStarboundStream stream)
         {
             stream.WriteSignedVLQ(CauseEntityId);
+            DamageN.WriteTo(stream);
+            /*
             stream.WriteSignedVLQ(TargetEntityId);
             stream.WriteSignedVLQ(PositionX * 100);
             stream.WriteSignedVLQ(PositionY * 100);
@@ -66,6 +74,7 @@ namespace SharpStar.Lib.Packets
             stream.WriteString(DamageSourceKind);
             stream.WriteString(TargetMaterialKind);
             stream.WriteUInt8(HitResultKind);
+             */
         }
     }
 }

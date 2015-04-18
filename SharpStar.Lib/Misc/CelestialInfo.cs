@@ -18,12 +18,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharpStar.Lib.DataTypes;
 using SharpStar.Lib.Networking;
 
 namespace SharpStar.Lib.Misc
 {
     public class CelestialInfo : IWriteable
     {
+        /*
         public int OrbitalLevels { get; set; }
 
         public int ChunkSize { get; set; }
@@ -37,15 +39,31 @@ namespace SharpStar.Lib.Misc
         public int ZCoordinateMax { get; set; }
 
         public List<Sector> Sectors { get; set; }
+        */
+
+        public int planetOrbitalLevels { get; set; }
+        public int satelliteOrbitalLevels { get; set; }
+        public int ChunkSize { get; set; }
+        public Vec2I xyCoordRange { get; set; }
+        //public Vec2I zCoordRange { get; set; }
+        public byte[] zCoordRange { get; set; }
 
         public CelestialInfo()
         {
-            Sectors = new List<Sector>();
+          //  Sectors = new List<Sector>();
         }
 
         public static CelestialInfo FromStream(IStarboundStream stream)
         {
             CelestialInfo cInfo = new CelestialInfo();
+            cInfo.planetOrbitalLevels = stream.ReadInt32();
+            cInfo.satelliteOrbitalLevels = stream.ReadInt32();
+            cInfo.ChunkSize = stream.ReadInt32();
+            cInfo.xyCoordRange = Vec2I.FromStream(stream);
+            cInfo.zCoordRange = stream.ReadToEnd();
+          //  cInfo.zCoordRange = Vec2I.FromStream(stream); //doc lies???
+           // cInfo.zCoordRange = stream.ReadInt32();
+            /*
             cInfo.OrbitalLevels = stream.ReadInt32();
             cInfo.ChunkSize = stream.ReadInt32();
             cInfo.XyCoordinateMin = stream.ReadInt32();
@@ -59,12 +77,20 @@ namespace SharpStar.Lib.Misc
             {
                 cInfo.Sectors.Add(Sector.FromStream(stream));
             }
-
+            */
             return cInfo;
         }
 
         public void WriteTo(IStarboundStream stream)
         {
+            stream.WriteInt32(planetOrbitalLevels);
+            stream.WriteInt32(satelliteOrbitalLevels);
+            stream.WriteInt32(ChunkSize);
+            xyCoordRange.WriteTo(stream);
+            stream.Write(zCoordRange,0,zCoordRange.Length);
+           // zCoordRange.WriteTo(stream);
+          //  stream.WriteInt32(zCoordRange);
+            /*
             stream.WriteInt32(OrbitalLevels);
             stream.WriteInt32(ChunkSize);
             stream.WriteInt32(XyCoordinateMin);
@@ -77,6 +103,7 @@ namespace SharpStar.Lib.Misc
             {
                 sector.WriteTo(stream);
             }
+            */
         }
     }
 }

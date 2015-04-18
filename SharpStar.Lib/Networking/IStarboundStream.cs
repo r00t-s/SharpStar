@@ -13,6 +13,9 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
+using System.Collections.Generic;
 using System.IO;
 using SharpStar.Lib.DataTypes;
 
@@ -149,5 +152,12 @@ namespace SharpStar.Lib.Networking
 
         byte[] ReadToEnd();
 
+        float ReadFloat();
+
+        void WriteFloat(float value);
+
+        HashSet<String> ReadHashSet();
+
+        void WriteHashSet(HashSet<String> hashset);
     }
 }

@@ -25,6 +25,7 @@ namespace SharpStar.Lib.Misc
         Projectile = 4,
         Plant = 5,
         PlantDrop = 6,
-        Effect = 7
+        Effect = 7,
+        Npc = 8
     }
 }

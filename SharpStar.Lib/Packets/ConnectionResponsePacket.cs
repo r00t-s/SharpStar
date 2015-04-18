@@ -22,10 +22,12 @@ namespace SharpStar.Lib.Packets
     //Credit to StarNet (https://github.com/SirCmpwn/StarNet)
     public class ConnectionResponsePacket : Packet
     {
+        /*
         public override byte PacketId
         {
             get { return (byte)KnownPacket.ConnectionResponse; }
         }
+        */
 
         public bool Success { get; set; }
 

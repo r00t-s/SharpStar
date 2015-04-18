@@ -26,19 +26,24 @@ namespace SharpStar.Lib.Packets
 
         private long Time { get; set; }
 
+        //private double Time_giraffe { get; set; }
+        public byte[] TimeBytes { get; set; }
+
         public UniverseTimeUpdatePacket()
         {
-            Time = 0L;
+          //  Time = 0L;
         }
 
         public override void Read(IStarboundStream stream)
         {
-            Time = stream.ReadSignedVLQ();
+          //  Time = stream.ReadSignedVLQ();
+            TimeBytes = stream.ReadToEnd();
         }
 
         public override void Write(IStarboundStream stream)
         {
-            stream.WriteSignedVLQ(Time);
+           // stream.WriteSignedVLQ(Time);
+            stream.Write(TimeBytes,0,TimeBytes.Length);
         }
     }
 }

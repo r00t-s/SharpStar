@@ -65,6 +65,16 @@ namespace SharpStar.Lib.Networking
             return (sbyte)ReadUInt8();
         }
 
+        public float ReadFloat()
+        {
+            return (float)ReadUInt8();
+        }
+
+        public void WriteFloat(float value)
+        {
+            WriteUInt8((byte) value);
+        }
+
         public void WriteInt8(sbyte value)
         {
             WriteUInt8((byte)value);
@@ -76,7 +86,18 @@ namespace SharpStar.Lib.Networking
                 (ReadUInt8() << 8) |
                 ReadUInt8());
         }
+        
+        public HashSet<String> ReadHashSet()
+        {
+            return (HashSet<String>) ReadHashSet();
+        }
 
+
+        public void WriteHashSet(HashSet<String> hashSet)
+        {
+            WriteHashSet(hashSet);
+        }
+        
         public void WriteUInt16(ushort value)
         {
             Write(new[]

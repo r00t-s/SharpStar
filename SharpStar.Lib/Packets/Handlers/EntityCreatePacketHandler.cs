@@ -13,8 +13,6 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using SharpStar.Lib.Entities;
 using SharpStar.Lib.Misc;
@@ -26,6 +24,7 @@ namespace SharpStar.Lib.Packets.Handlers
     {
         public override Task Handle(EntityCreatePacket packet, SharpStarClient client)
         {
+            /*
             foreach (var ent in packet.Entities)
             {
                 if (ent.EntityType == EntityType.Player && ent is PlayerEntity)
@@ -38,6 +37,7 @@ namespace SharpStar.Lib.Packets.Handlers
                     }
                 }
             }
+            */
 
             SharpStarMain.Instance.PluginManager.CallEvent("entityCreate", packet, client);
 

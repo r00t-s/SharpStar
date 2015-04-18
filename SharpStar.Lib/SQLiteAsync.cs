@@ -435,7 +435,7 @@ namespace SQLite
 		{
 			lock (_entriesLock) {
 				Entry entry;
-				string key = connectionString.ConnectionString;
+				var key = connectionString.ConnectionString;
 
 				if (!_entries.TryGetValue (key, out entry)) {
 					entry = new Entry (connectionString, openFlags);
@@ -485,7 +485,7 @@ namespace SQLite
 
 		private class LockWrapper : IDisposable
 		{
-			object _lockPoint;
+			readonly object _lockPoint;
 
 			public LockWrapper (object lockPoint)
 			{

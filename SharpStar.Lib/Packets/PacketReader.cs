@@ -54,6 +54,8 @@ namespace SharpStar.Lib.Packets
         {
             RegisteredPacketTypes = new Dictionary<byte, Func<IPacket>>();
 
+            /*
+             * pissed off koala 7 packets
             RegisterPacketType((byte)KnownPacket.ProtocolVersion, typeof(ProtocolVersionPacket));
             RegisterPacketType((byte)KnownPacket.ConnectionResponse, typeof(ConnectionResponsePacket));
             RegisterPacketType((byte)KnownPacket.DisconnectResponse, typeof(DisconnectResponsePacket));
@@ -83,6 +85,65 @@ namespace SharpStar.Lib.Packets
             RegisterPacketType((byte)KnownPacket.UpdateWorldProperties, typeof(UpdateWorldPropertiesPacket));
             RegisterPacketType((byte)KnownPacket.Heartbeat, typeof(HeartbeatPacket));
             RegisterPacketType((byte)KnownPacket.SpawnEntity, typeof(SpawnEntityPacket));
+             */
+
+
+            RegisterPacketType((byte)KnownPacket.ProtocolVersion, typeof(ProtocolVersionPacket));
+            RegisterPacketType((byte)KnownPacket.ServerDisconnect, typeof(ServerDisconnectPacket));
+            RegisterPacketType((byte)KnownPacket.ConnectSuccess, typeof(ConnectSuccessPacket));
+            RegisterPacketType((byte)KnownPacket.ConnectFailure, typeof(ConnectFailurePacket));
+            RegisterPacketType((byte)KnownPacket.HandshakeChallenge, typeof(HandshakeChallengePacket));
+            RegisterPacketType((byte)KnownPacket.ChatReceive, typeof(ChatReceivedPacket));
+            RegisterPacketType((byte)KnownPacket.UniverseTimeUpdate, typeof(UniverseTimeUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.CelestialResponse, typeof(CelestialResponsePacket));
+            RegisterPacketType((byte)KnownPacket.PlayerWarpResult, typeof(PlayerWarpResultPacket));
+            RegisterPacketType((byte)KnownPacket.ClientConnect, typeof(ClientConnectPacket));
+            RegisterPacketType((byte)KnownPacket.ClientDisconnectRequest, typeof(ClientDisconnectPacket));
+            RegisterPacketType((byte)KnownPacket.HandshakeResponse, typeof(HandshakeResponsePacket));
+            RegisterPacketType((byte)KnownPacket.PlayerWarp, typeof(PlayerWarpPacket));
+            RegisterPacketType((byte)KnownPacket.FlyShip, typeof(FlyShipPacket));
+            RegisterPacketType((byte)KnownPacket.ChatSend, typeof(ChatSendPacket));
+            RegisterPacketType((byte)KnownPacket.CelestialRequest, typeof(CelestialRequestPacket));
+            RegisterPacketType((byte)KnownPacket.ClientContextUpdate, typeof(ClientContextUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.WorldStart, typeof(WorldStartPacket));
+            RegisterPacketType((byte)KnownPacket.WorldStop, typeof(WorldStopPacket));
+            RegisterPacketType((byte)KnownPacket.CentralStructureUpdate, typeof(CentralStructureUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.TileArrayUpdate, typeof(TileArrayUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.TileUpdate, typeof(TileUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.TileLiquidUpdate, typeof(TileLiquidUpdatePacket)); 
+            RegisterPacketType((byte)KnownPacket.TileDamageUpdate, typeof(TileDamageUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.TileModificationFailure, typeof(TileModificationFailurePacket));
+            RegisterPacketType((byte)KnownPacket.GiveItem, typeof(GiveItemPacket));
+            RegisterPacketType((byte)KnownPacket.SwapInContainerResult, typeof(SwapInContainerResultPacket));
+            RegisterPacketType((byte)KnownPacket.EnvironmentUpdate, typeof(EnvironmentUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.EntityInteractResult, typeof(EntityInteractResultPacket));
+            RegisterPacketType((byte)KnownPacket.UpdateTileProtection, typeof(UpdateTileProtectionPacket));
+            RegisterPacketType((byte)KnownPacket.ModifyTileList, typeof(ModifyTileListPacket));
+            RegisterPacketType((byte)KnownPacket.DamageTileGroup, typeof(DamageTileGroupPacket));
+            RegisterPacketType((byte)KnownPacket.CollectLiquid, typeof(CollectLiquidPacket));
+            RegisterPacketType((byte)KnownPacket.RequestDrop, typeof(RequestDropPacket));
+            RegisterPacketType((byte)KnownPacket.SpawnEntity, typeof(SpawnEntityPacket));
+            RegisterPacketType((byte)KnownPacket.EntityInteract, typeof(EntityInteractPacket));
+            RegisterPacketType((byte)KnownPacket.ConnectWire, typeof(ConnectWirePacket));
+            RegisterPacketType((byte)KnownPacket.DisconnectAllWires, typeof(DisconnectAllWiresPacket));
+            RegisterPacketType((byte)KnownPacket.OpenContainer, typeof(OpenContainerPacket));
+            RegisterPacketType((byte)KnownPacket.CloseContainer, typeof(CloseContainerPacket));
+            RegisterPacketType((byte)KnownPacket.SwapInContainer, typeof(SwapInContainerPacket));
+            RegisterPacketType((byte)KnownPacket.ItemApplyInContainer, typeof(ItemApplyInContainerPacket));
+            RegisterPacketType((byte)KnownPacket.StartCraftingInContainer, typeof(StartCraftingInContainerPacket));
+            RegisterPacketType((byte)KnownPacket.StopCraftingInContainer, typeof(StopCraftingInContainerPacket));
+            RegisterPacketType((byte)KnownPacket.BurnContainer, typeof(BurnContainerPacket));
+            RegisterPacketType((byte)KnownPacket.ClearContainer, typeof(ClearContainerPacket));
+            RegisterPacketType((byte)KnownPacket.WorldClientStateUpdate, typeof(WorldClientStateUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.EntityCreate, typeof(EntityCreatePacket));
+            RegisterPacketType((byte)KnownPacket.EntityUpdate, typeof(EntityUpdatePacket));
+            RegisterPacketType((byte)KnownPacket.EntityDestroy, typeof(EntityDestroyPacket));
+            RegisterPacketType((byte)KnownPacket.HitRequest, typeof(HitRequestPacket));
+            RegisterPacketType((byte)KnownPacket.DamageRequest, typeof(DamageRequestPacket));
+            RegisterPacketType((byte)KnownPacket.DamageNotification, typeof(DamageNotificationPacket));
+            RegisterPacketType((byte)KnownPacket.CallScriptedEntity, typeof(CallScriptedEntityPacket));
+            RegisterPacketType((byte)KnownPacket.UpdateWorldProperties, typeof(UpdateWorldPropertiesPacket));
+            RegisterPacketType((byte)KnownPacket.Heartbeat, typeof(HeartbeatPacket));
         }
 
         public static void RegisterPacketType(byte id, Type packetType)
@@ -149,6 +210,9 @@ namespace SharpStar.Lib.Packets
                                 data = ZlibStream.UncompressBuffer(data);
                             }
 
+                            //todo Omit this after testing
+                            //SharpStarLogger.DefaultLogger.Info(string.Format("{0}{1}","ID : ",_packetId));
+                            
                             IPacket packet = Decode(_packetId, data);
 
                             WorkingLength = long.MaxValue;
@@ -175,6 +239,14 @@ namespace SharpStar.Lib.Packets
             StarboundStream stream = new StarboundStream(payload);
 
             IPacket packet;
+            /*
+            string val = null;
+            foreach (var s in payload)
+            {
+                val += s;
+            }
+            SharpStarLogger.DefaultLogger.Info(string.Format("{0}{1}","Payload : ",val));
+            */
 
             if (RegisteredPacketTypes.ContainsKey(packetId))
             {
@@ -195,7 +267,7 @@ namespace SharpStar.Lib.Packets
                 }
                 catch (Exception e)
                 {
-                    SharpStarLogger.DefaultLogger.Error("Packet {0} caused and error!", packet.GetType().Name);
+                    SharpStarLogger.DefaultLogger.Error("Packet {0} caused an error!", packet.GetType().Name);
 
                     e.LogError();
                 }

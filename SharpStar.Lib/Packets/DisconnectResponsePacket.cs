@@ -19,10 +19,12 @@ namespace SharpStar.Lib.Packets
 {
     public class DisconnectResponsePacket : Packet
     {
+        /*
         public override byte PacketId
         {
-            get { return (byte)KnownPacket.DisconnectResponse; }
+           get { return (byte)KnownPacket.DisconnectResponse; }
         }
+        */
 
         public byte Unknown { get; set; }
 

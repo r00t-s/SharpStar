@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using SharpStar.Lib.DataTypes;
+using SharpStar.Lib.Logging;
 using SharpStar.Lib.Networking;
 
 namespace SharpStar.Lib.Packets
@@ -25,24 +26,43 @@ namespace SharpStar.Lib.Packets
             get { return (byte)KnownPacket.EntityInteractResult; }
         }
 
-        public uint ClientId { get; set; }
+        public InteractionType Itype { get; set; }
 
         public int EntityId { get; set; }
 
-        public Variant Results { get; set; }
+        public Json Results { get; set; }
 
         public override void Read(IStarboundStream stream)
         {
-            ClientId = stream.ReadUInt32();
+            Itype = (InteractionType) stream.ReadUInt32();
+            SharpStarLogger.DefaultLogger.Info("itype:"+Itype);
             EntityId = stream.ReadInt32();
-            Results = stream.ReadVariant();
+            SharpStarLogger.DefaultLogger.Info("EntityID:" + EntityId);
+            Results = Json.FromStream(stream);
+            SharpStarLogger.DefaultLogger.Info("Results:" + Results);
         }
 
         public override void Write(IStarboundStream stream)
         {
-            stream.WriteUInt32(ClientId);
+            stream.WriteUInt32((uint) Itype);
             stream.WriteInt32(EntityId);
-            stream.WriteVariant(Results);
+            Results.WriteTo(stream);
         }
+    }
+
+    public enum InteractionType
+    {
+        None, 	
+        OpenCockpitInterface, 	
+        OpenContainer, 	
+        SitDown, 	
+        OpenCraftingInterface, 	
+        OpenSongbookInterface, 	
+        OpenNpcCraftingInterface, 	
+        OpenNpcBountyInterface, 	
+        OpenAiInterface, 	
+        OpenTeleportDialog, 	
+        ShowPopup, 	
+        ScriptConsole 
     }
 }

@@ -67,17 +67,17 @@ namespace SharpStar.Lib.Entities
 
                 using (StarboundStream s = new StarboundStream(storeData))
                 {
-
+                    /*
                     bool uuid = s.ReadBoolean();
 
                     if (uuid)
                     {
-
+                    */
                         byte[] uuidDat = s.ReadUInt8Array(16);
 
                         pent.UUID = BitConverter.ToString(uuidDat, 0).Replace("-", "").ToLower();
 
-                    }
+                    //}
 
                 }
 

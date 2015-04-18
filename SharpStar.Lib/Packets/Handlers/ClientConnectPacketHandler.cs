@@ -27,72 +27,82 @@ namespace SharpStar.Lib.Packets.Handlers
 {
     public class ClientConnectPacketHandler : PacketHandler<ClientConnectPacket>
     {
-        public override async Task Handle(ClientConnectPacket packet, SharpStarClient client)
-        {
-            if (packet.IsReceive)
-            {
-                string uuid = BitConverter.ToString(packet.UUID, 0).Replace("-", String.Empty).ToLower();
+        /*
+         public override async Task Handle(ClientConnectPacket packet, SharpStarClient client)
+         {
 
-                var clients = SharpStarMain.Instance.Server.Clients.Where(p => p.Player != null && p.Player.UUID == uuid);
-                clients.ToList().ForEach(p =>
-                {
-                    SharpStarLogger.DefaultLogger.Info("Duplicate UUID ({0}) detected. Killing old client!", uuid);
-                    p.PlayerClient.ForceDisconnect();
-                    p.ServerClient.ForceDisconnect();
-                });
+             if (packet.IsReceive)
+             {
+                 string uuid = BitConverter.ToString(packet.UUID, 0).Replace("-", String.Empty).ToLower();
 
-                client.Server.Player = new StarboundPlayer(packet.PlayerName.StripColors(), uuid)
-                {
-                    NameWithColor = packet.PlayerName,
-                    Species = packet.Species,
-                    OnOwnShip = true
-                };
+                 var clients = SharpStarMain.Instance.Server.Clients.Where(p => p.Player != null && p.Player.UUID == uuid);
+                 clients.ToList().ForEach(p =>
+                 {
+                     SharpStarLogger.DefaultLogger.Info("Duplicate UUID ({0}) detected. Killing old client!", uuid);
+                     p.PlayerClient.ForceDisconnect();
+                     p.ServerClient.ForceDisconnect();
+                 });
 
-                if (!string.IsNullOrEmpty(packet.Account.Trim()))
-                {
-                    client.Server.Player.Guest = false;
-                    client.Server.Player.AttemptedLogin = true;
+                 client.Server.Player = new StarboundPlayer(packet.PlayerName.StripColors(), uuid)
+                 {
+                     NameWithColor = packet.PlayerName,
+                     Species = packet.Species,
+                     OnOwnShip = true
+                 };
 
-                    SharpStarUser user = SharpStarMain.Instance.Database.GetUser(packet.Account.Trim());
+                 if (!string.IsNullOrEmpty(packet.Account.Trim()))
+                 {
+                     client.Server.Player.Guest = false;
+                     client.Server.Player.AttemptedLogin = true;
 
-                    if (user == null)
-                    {
-                        await client.Server.PlayerClient.SendPacket(new HandshakeChallengePacket { Salt = "" });
+                     SharpStarUser user = SharpStarMain.Instance.Database.GetUser(packet.Account.Trim());
 
-                        return;
-                    }
+                     if (user == null)
+                     {
+                         await client.Server.PlayerClient.SendPacket(new HandshakeChallengePacket { Salt = "" });
 
-                    packet.Account = "";
+                         return;
+                     }
 
-                    client.Server.Player.UserAccount = user;
-                    client.Server.Player.JoinSuccessful = true;
+                     packet.Account = "";
 
-                    await client.Server.PlayerClient.SendPacket(new HandshakeChallengePacket { Salt = user.Salt });
-                }
-                else if (string.IsNullOrEmpty(packet.Account.Trim()) && !string.IsNullOrEmpty(SharpStarMain.Instance.Config.ConfigFile.GuestPassword))
-                {
-                    client.Server.Player.AttemptedLogin = true;
-                    client.Server.Player.Guest = true;
+                     client.Server.Player.UserAccount = user;
+                     client.Server.Player.JoinSuccessful = true;
 
-                    if (string.IsNullOrEmpty(SharpStarMain.Instance.Config.ConfigFile.GuestPasswordSalt) || string.IsNullOrEmpty(SharpStarMain.Instance.Config.ConfigFile.GuestPasswordHash))
-                    {
-                        string salt = SharpStarSecurity.GenerateSalt();
-                        string hash = SharpStarSecurity.GenerateHash("", SharpStarMain.Instance.Config.ConfigFile.GuestPassword, salt, StarboundConstants.Rounds);
+                     await client.Server.PlayerClient.SendPacket(new HandshakeChallengePacket { Salt = user.Salt });
+                 }
+                 else if (string.IsNullOrEmpty(packet.Account.Trim()) && !string.IsNullOrEmpty(SharpStarMain.Instance.Config.ConfigFile.GuestPassword))
+                 {
+                     client.Server.Player.AttemptedLogin = true;
+                     client.Server.Player.Guest = true;
 
-                        SharpStarMain.Instance.Config.ConfigFile.GuestPasswordSalt = salt;
-                        SharpStarMain.Instance.Config.ConfigFile.GuestPasswordHash = hash;
-                        SharpStarMain.Instance.Config.Save(SharpStarMain.ConfigFile);
-                    }
+                     if (string.IsNullOrEmpty(SharpStarMain.Instance.Config.ConfigFile.GuestPasswordSalt) || string.IsNullOrEmpty(SharpStarMain.Instance.Config.ConfigFile.GuestPasswordHash))
+                     {
+                         string salt = SharpStarSecurity.GenerateSalt();
+                         string hash = SharpStarSecurity.GenerateHash("", SharpStarMain.Instance.Config.ConfigFile.GuestPassword, salt, StarboundConstants.Rounds);
 
-                    client.Server.Player.JoinSuccessful = true;
+                         SharpStarMain.Instance.Config.ConfigFile.GuestPasswordSalt = salt;
+                         SharpStarMain.Instance.Config.ConfigFile.GuestPasswordHash = hash;
+                         SharpStarMain.Instance.Config.Save(SharpStarMain.ConfigFile);
+                     }
 
-                    await client.Server.PlayerClient.SendPacket(new HandshakeChallengePacket { Salt = SharpStarMain.Instance.Config.ConfigFile.GuestPasswordSalt });
-                }
-            }
+                     client.Server.Player.JoinSuccessful = true;
 
-            SharpStarMain.Instance.PluginManager.CallEvent("clientConnected", packet, client);
-        }
+                     await client.Server.PlayerClient.SendPacket(new HandshakeChallengePacket { Salt = SharpStarMain.Instance.Config.ConfigFile.GuestPasswordSalt });
+                 }
+             }
 
+             SharpStarMain.Instance.PluginManager.CallEvent("clientConnected", packet, client);
+         }
+           */
+
+        public override Task Handle(ClientConnectPacket packet, SharpStarClient client)
+         {
+             SharpStarMain.Instance.PluginManager.CallEvent("clientDisconnected", packet, client);
+
+             return base.Handle(packet, client);
+         }
+       
         public override Task HandleAfter(ClientConnectPacket packet, SharpStarClient client)
         {
             SharpStarMain.Instance.PluginManager.CallEvent("afterClientConnected", packet, client);

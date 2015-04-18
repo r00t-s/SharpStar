@@ -18,7 +18,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Timers;
-using log4net;
+//using log4net;
 using SharpStar.Lib.Config;
 using SharpStar.Lib.Database;
 using SharpStar.Lib.Logging;

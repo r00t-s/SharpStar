@@ -15,7 +15,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using SharpStar.Lib.Misc;
 using SharpStar.Lib.Networking;
 
@@ -68,7 +70,7 @@ namespace SharpStar.Lib.DataTypes
     public class WorldCoordinate
     {
 
-        public string Sector { get; set; }
+       public string Sector { get; set; }
 
         public int X { get; set; }
 
@@ -82,7 +84,7 @@ namespace SharpStar.Lib.DataTypes
 
         public WorldCoordinate()
         {
-            Sector = String.Empty;
+           Sector = String.Empty;
             X = 0;
             Y = 0;
             Z = 0;
@@ -94,20 +96,20 @@ namespace SharpStar.Lib.DataTypes
         {
 
             WorldCoordinate wc = new WorldCoordinate();
-            wc.Sector = stream.ReadString();
+         //   wc.Sector = stream.ReadString();
             wc.X = stream.ReadInt32();
             wc.Y = stream.ReadInt32();
             wc.Z = stream.ReadInt32();
             wc.Planet = stream.ReadInt32();
             wc.Satellite = stream.ReadInt32();
-
+            wc.Sector = wc.X.ToString() + wc.Y.ToString() + wc.Planet.ToString() + wc.Planet.ToString() + wc.Satellite.ToString();
             return wc;
 
         }
 
         public void WriteTo(IStarboundStream stream)
         {
-            stream.WriteString(Sector);
+          //  stream.WriteString(Sector);
             stream.WriteInt32(X);
             stream.WriteInt32(Y);
             stream.WriteInt32(Z);
@@ -139,8 +141,10 @@ namespace SharpStar.Lib.DataTypes
 
                             WorldCoordinate coords = FromStream(s);
 
+                            /*
                             if (string.IsNullOrEmpty(coords.Sector))
                                 return null;
+                            */
 
                             return coords;
 
@@ -156,7 +160,7 @@ namespace SharpStar.Lib.DataTypes
 
         protected bool Equals(WorldCoordinate other)
         {
-            return string.Equals(Sector, other.Sector) && X == other.X && Y == other.Y && Z == other.Z && Planet == other.Planet && Satellite == other.Satellite;
+            return string.Equals(Sector, other.Sector) && X == other.X && Y == other.Y && Z == other.Z && Planet == other.Planet && Satellite == other.Satellite /*(Sector, other.Sector) && */;
         }
 
         public override bool Equals(object obj)
@@ -230,7 +234,32 @@ namespace SharpStar.Lib.DataTypes
             Planet = 0;
             Satellite = 0;
         }
-
     }
 
+    public class CelestialCoordinate
+    {
+        public Vec3I CelestialVec3I { get; set; }
+
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
+
+        public static CelestialCoordinate FromStream(IStarboundStream stream)
+        {
+            var cs = new CelestialCoordinate();
+
+            cs.X = stream.ReadInt32();
+            cs.Y = stream.ReadInt32();
+            cs.Z = stream.ReadInt32();
+
+            return cs;
+        }
+
+        public void WriteTo(IStarboundStream stream)
+        {
+            stream.WriteInt32(X);
+            stream.WriteInt32(Y);
+            stream.WriteInt32(Z);
+        }
+    }
 }
